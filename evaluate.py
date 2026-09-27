@@ -26,7 +26,9 @@ def build_corpus(records: list[dict]) -> dict[str, str]:
     corpus = {}
     for rec in records:
         for doc_id in rec.get("doc_ids", []):
-            corpus[doc_id] = rec.get("gold_answer", "")
+            text = rec.get("doc_text", "") or rec.get("gold_answer", "")
+            if text:
+                corpus[doc_id] = text
     return corpus
 
 

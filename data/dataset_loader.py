@@ -28,14 +28,16 @@ def load_tydiqa(split: str = "train") -> list[dict]:
         lang      = TYDYQA_LANG
         answers   = item.get("answers", [])
         gold_text = answers[0]["text"] if answers else ""
-        # doc id for retrieval ground truth — use title or passage id
-        title  = item.get("title", "")
-        doc_id = title.strip().lower().replace(" ", "_") if title else item.get("passage_id", "")
+        # TyDiQA fields: title, context (passage text)
+        title   = item.get("title", "")
+        context = item.get("context", "")
+        doc_id  = title.strip().lower().replace(" ", "_") if title else f"doc_{len(records)}"
         records.append({
             "query":       query,
             "language":    lang,
             "gold_answer": gold_text,
-            "doc_ids":     [doc_id] if doc_id else [],
+            "doc_ids":     [doc_id],
+            "doc_text":    context,
         })
     if MAX_QUERIES:
         records = records[:MAX_QUERIES]
