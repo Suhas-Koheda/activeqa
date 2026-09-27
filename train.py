@@ -117,6 +117,7 @@ def main():
     reformulator = ReformulationGenerator(device=args.device)
 
     # ── 5. Compute rewards ───────────────────────────────────────────────────
+    print("\n[STEP 5/7] Computing reward matrix (evaluating all 6 actions per query)…")
     rewards = compute_rewards(records, reformulator, retriever)
     print(f"  Reward matrix shape: {rewards.shape}")
     print(f"  Mean reward per action: {dict(zip(ACTIONS, rewards.mean(axis=0).round(3)))}")
