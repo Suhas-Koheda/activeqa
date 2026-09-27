@@ -20,7 +20,7 @@ def load_tydiqa(split: str = "train") -> list[dict]:
     """
     Load TyDiQA-GoldP for Telugu and flatten to query-level records.
     """
-    ds = load_dataset("google-research-datasets/tydiqa", "primary", split=split)
+    ds = load_dataset("google-research-datasets/tydiqa", "primary_task", split=split)
     records = []
     for item in ds:
         # TyDiQA passage-task fields
